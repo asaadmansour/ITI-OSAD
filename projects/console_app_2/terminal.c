@@ -40,11 +40,11 @@ void terminal_set_color(int color) {
 
 void terminal_set_colors(int fg_color, int bg_color) {
     #ifdef _WIN32
-        // Windows: combine foreground and background
+  
         int combined = bg_color | fg_color;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), combined);
     #else
-        // ANSI: set both foreground and background
+        
         printf("\033[%d;%dm", bg_color, fg_color);
         fflush(stdout);
     #endif
@@ -54,13 +54,13 @@ void terminal_set_combined_color(int combined_color) {
     #ifdef _WIN32
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), combined_color);
     #else
-        // Handle special combined color codes for Linux
+        
         if (combined_color == COLOR_WHITE_BG_BLACK_FG) {
-            printf("\033[47;30m");  // White background, black foreground
+            printf("\033[47;30m");  
         } else if (combined_color == COLOR_BLUE_BG_BLACK_FG) {
-            printf("\033[44;30m");  // Blue background, black foreground
+            printf("\033[44;30m");  
         } else if (combined_color == COLOR_DEFAULT) {
-            printf("\033[0m");  // Reset to default
+            printf("\033[0m");  
         }
         fflush(stdout);
     #endif

@@ -4,7 +4,6 @@
 #include "screen.h"
 #include "input.h"
 
-// Private application state
 static int app_state = APP_STATE_RUNNING;
 
 // ============================================================================
@@ -17,7 +16,7 @@ static void handle_new_screen(void) {
     if (result == KEY_ESC) {
         app_state = APP_STATE_EXIT;
     }
-    // If KEY_BACKSPACE, state remains RUNNING and returns to menu
+    
 }
 
 static void handle_display_screen(void) {
@@ -26,7 +25,7 @@ static void handle_display_screen(void) {
     if (result == KEY_ESC) {
         app_state = APP_STATE_EXIT;
     }
-    // If KEY_BACKSPACE, state remains RUNNING and returns to menu
+   
 }
 
 static void handle_exit(void) {
