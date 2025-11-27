@@ -23,7 +23,9 @@ int creator_add_user(void) {
     printf("\n === ADD NEW USER ===\n\n");
     
     FormData data = form_data_create();
-    if (!form_data_input(&data)) {
+    int is_valid = form_data_input(&data);
+
+    if (is_valid == 0) {
         printf("\n Invalid input! Press any key to continue...\n");
         input_getch();
         return 0;
