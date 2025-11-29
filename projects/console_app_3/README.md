@@ -1,34 +1,32 @@
-# Vi-like Text Editor (C)
+# console_app_3 — Simple Employee DB (C)
 
-A terminal-based text editor inspired by vi, featuring text editing, cursor navigation, and file operations.
+A small console application that manages employee records in memory using an array of structs. Provides a menu-driven interface to create, list, search, update, delete employees and optionally save/load to a file.
 
 ## Features
+- Add new employee records (name, id, email, phone, age, etc.)
+- List all employees
+- Search employee by ID (or name)
+- Update and delete employee records
+- Optional simple persistence: save/load records to/from a file
+- Menu-driven console UI with basic input helpers
 
-- **Text editing** - Write and modify text in the terminal
-- **Cursor navigation** - Move through text with arrow keys
-- **File operations** - Save your work to files
-- **Menu system** - Access editor functions through menus
-- **Form data handling** - Manage editor state and content
-- **Terminal UI** - Full-screen editing interface
+## Data model
+- Each record is stored in a struct, for example:
+  - int id
+  - char name[...]
+  - char email[...]
+  - char phone[...]
+  - int age
+- Records are stored in a fixed-size array (MAX_EMPLOYEES) in memory.
 
-## Components
+## Core functions (expected / recommended)
+- add_employee(struct Employee arr[], int &count, const Employee *e)
+- list_employees(const Employee arr[], int count)
+- find_employee_by_id(const Employee arr[], int count, int id) -> index or -1
+- update_employee(Employee arr[], int index, const Employee *newData)
+- delete_employee(Employee arr[], int *count, int index)
+- save_employees(const Employee arr[], int count, const char *filename)
+- load_employees(Employee arr[], int *count, const char *filename)
+- simple input helpers: read_string(), read_int(), confirm()
 
-- `app` - Main application logic and editor state
-- `menu` - Menu system for file operations
-- `screen` - Display management and rendering
-- `input` - Keyboard input processing
-- `formData` - Text data structures and handling
-- `create` - Document creation and editing functionality
-- `terminal` - Terminal control library
 
-## Key Operations
-
-- Arrow keys - Navigate cursor through text
-- Character keys - Insert text at cursor position
-- Backspace/Delete - Remove characters
-- Enter - New line
-- Menu - Access save and other operations
-
-## Usage
-
-Launch the editor, write your text using the keyboard, navigate with arrow keys, and save your work through the menu system.
