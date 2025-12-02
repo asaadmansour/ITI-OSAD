@@ -1,19 +1,40 @@
 #include "list.h"
 #include <iostream>
+#include <limits>
 using namespace std;
 
 int main() {
     List l;
     
-    int numElements;
-    cout << "How many elements do you want to add? ";
-    cin >> numElements;
-    cin.ignore();
+    int numElements = 0;
+    bool validInput = false;
+    
+    while(!validInput) {
+        cout << "How many elements do you want to add? ";
+        if(cin >> numElements) {
+            if(numElements > 0) {
+                validInput = true;
+            } else {
+                cout << "Please enter a positive number.\n";
+            }
+        } else {
+            cout << "Invalid input. Please enter a number.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     
     for(int i = 0; i < numElements; i++) {
         char input[100];
         cout << "Enter value " << (i+1) << ": ";
-        cin >> input;
+        cin.getline(input, 100);
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            i--;
+            continue;
+        }
         l.appendAuto(input);
     }
     

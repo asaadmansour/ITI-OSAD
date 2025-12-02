@@ -172,49 +172,57 @@ void List::set(int index, const bool value) {
 }
 bool List::isInteger(const char* str) {
     int i = 0;
-    
-    
-    while(str[i] == ' ') i++;
-    
-    
-    if(str[i] == '-' || str[i] == '+') i++;
-    
-    
-    if(str[i] == '\0') return false;
-    
-    
-    while(str[i] != '\0') {
-        if(str[i] < '0' || str[i] > '9') return false;
-        i++;
-    }
-    
-    return true;
-}
-bool List::isFloat(const char* str) {
-    int i = 0;
-    bool hasDecimal = false;
-    
+    bool hasDigit = false;
     
     while(str[i] == ' ') i++;
     
-    
     if(str[i] == '-' || str[i] == '+') i++;
-    
     
     if(str[i] == '\0') return false;
     
-    
     while(str[i] != '\0') {
-        if(str[i] == '.') {
-            if(hasDecimal) return false;  
-            hasDecimal = true;
-        } else if(str[i] < '0' || str[i] > '9') {
+        if(str[i] >= '0' && str[i] <= '9') {
+            hasDigit = true;
+        } else if(str[i] != ' ') {
             return false;
+        } else {
+            break;
         }
         i++;
     }
     
-    return hasDecimal;  
+    while(str[i] == ' ') i++;
+    
+    return hasDigit && str[i] == '\0';
+}
+bool List::isFloat(const char* str) {
+    int i = 0;
+    bool hasDecimal = false;
+    bool hasDigit = false;
+    
+    while(str[i] == ' ') i++;
+    
+    if(str[i] == '-' || str[i] == '+') i++;
+    
+    if(str[i] == '\0') return false;
+    
+    while(str[i] != '\0') {
+        if(str[i] == '.') {
+            if(hasDecimal) return false;
+            hasDecimal = true;
+        } else if(str[i] >= '0' && str[i] <= '9') {
+            hasDigit = true;
+        } else if(str[i] != ' ') {
+            return false;
+        } else {
+            break;
+        }
+        i++;
+    }
+    
+    while(str[i] == ' ') i++;
+    
+    return hasDecimal && hasDigit && str[i] == '\0';
 }
 bool List::isBool(const char* str) {
     
@@ -229,14 +237,21 @@ bool List::isBool(const char* str) {
 }
 
 bool List::hasExpression(const char* str) {
+    bool hasDigit = false;
+    bool hasOperator = false;
     
     for(int i = 0; str[i] != '\0'; i++) {
-      
-        if(i > 0 && (str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/')) {
-            return true;
+        if(str[i] >= '0' && str[i] <= '9') {
+            hasDigit = true;
+        } else if(i > 0 && (str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/')) {
+            if(hasDigit) {
+                hasOperator = true;
+            }
+        } else if(str[i] != ' ' && !(i == 0 && (str[i] == '+' || str[i] == '-'))) {
+            return false;
         }
     }
-    return false;
+    return hasDigit && hasOperator;
 }
 
 int List::evaluateExpression(const char* str) {
