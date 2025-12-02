@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1764589391 source:/home/mina/Documents/CodeBlocks/Relations/main.cpp
+	<iostream>
+	"Instructor.h"
+	"Room.h"
+	"Marker.h"
+
+1764581742 /home/mina/Documents/CodeBlocks/Relations/include/Instructor.h
+	"Marker.h"
+
+1764581510 /home/mina/Documents/CodeBlocks/Relations/include/Marker.h
+
+1764586805 /home/mina/Documents/CodeBlocks/Relations/include/Room.h
+	<iostream>
+	"Instructor.h"
+	"Wall.h"
+
+1764584398 /home/mina/Documents/CodeBlocks/Relations/include/Wall.h
+

@@ -1,0 +1,27 @@
+#ifndef TEAM_H
+#define TEAM_H
+#include <iostream>
+using namespace std;
+class Player{
+    //---
+};
+
+class Team
+{
+    private:
+        std::vector<Player * > players;
+    public:
+        Team() {
+        }
+        void addPlayer(Player * p){
+            players.push_back(p);
+        }
+        
+        ~Team() {}
+
+    protected:
+
+
+};
+
+#endif // TEAM_H
