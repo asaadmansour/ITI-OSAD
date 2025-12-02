@@ -8,22 +8,62 @@ int main() {
     
     int numElements = 0;
     bool validInput = false;
+    char buffer[100];
     
     while(!validInput) {
         cout << "How many elements do you want to add? ";
-        if(cin >> numElements) {
-            if(numElements > 0) {
-                validInput = true;
-            } else {
-                cout << "Please enter a positive number.\n";
-            }
-        } else {
-            cout << "Invalid input. Please enter a number.\n";
+        cin.getline(buffer, 100);
+        
+        if(cin.fail()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a number.\n";
+            continue;
         }
+        
+        int i = 0;
+        while(buffer[i] == ' ') i++;
+        
+        if(buffer[i] == '\0') {
+            cout << "Invalid input. Please enter a number.\n";
+            continue;
+        }
+        
+        bool isNegative = false;
+        if(buffer[i] == '-') {
+            isNegative = true;
+            i++;
+        } else if(buffer[i] == '+') {
+            i++;
+        }
+        
+        if(buffer[i] < '0' || buffer[i] > '9') {
+            cout << "Invalid input. Please enter a number.\n";
+            continue;
+        }
+        
+        numElements = 0;
+        while(buffer[i] >= '0' && buffer[i] <= '9') {
+            numElements = numElements * 10 + (buffer[i] - '0');
+            i++;
+        }
+        
+        while(buffer[i] == ' ') i++;
+        
+        if(buffer[i] != '\0') {
+            cout << "Invalid input. Please enter a number.\n";
+            continue;
+        }
+        
+        if(isNegative) numElements = -numElements;
+        
+        if(numElements <= 0) {
+            cout << "Please enter a positive number.\n";
+            continue;
+        }
+        
+        validInput = true;
     }
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     
     for(int i = 0; i < numElements; i++) {
         char input[100];
