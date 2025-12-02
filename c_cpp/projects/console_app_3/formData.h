@@ -16,6 +16,7 @@ typedef struct {
 } FormData;
 FormData form_data_create(void);
 int form_data_validate(const FormData* data);
+int form_data_input(FormData* data);
 
 void form_data_clear(FormData* data);
 int form_data_is_empty(const FormData* data);
