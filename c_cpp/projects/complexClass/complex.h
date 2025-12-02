@@ -23,11 +23,33 @@ class Complex {
     void setImaginary(int imaginaryNumber) ;
 
     //operators
+    
+    // Arithmetic operators
     Complex operator+ (const Complex& c) const;
     Complex operator- (const Complex& c) const;
+    Complex operator* (const Complex& c) const;
+    Complex operator/ (const Complex& c) const;
+    
+    // Assignment operator
     Complex& operator= (const Complex& c);
+    
+    // Compound assignment operators (Complex)
+    Complex& operator+= (const Complex& c);
+    Complex& operator-= (const Complex& c);
+    Complex& operator*= (const Complex& c);
+    Complex& operator/= (const Complex& c);
+    
+    // Compound assignment operators (real numbers)
+    Complex& operator+= (int realNum);
+    Complex& operator-= (int realNum);
+    Complex& operator*= (int realNum);
+    Complex& operator/= (int realNum);
+    
+    // Comparison operators
     bool operator ==(const Complex& c) const;
     bool operator !=(const Complex &c) const;
+    
+    // Stream operator
     friend ostream& operator<< (ostream& os,Complex c);
 };
 #endif

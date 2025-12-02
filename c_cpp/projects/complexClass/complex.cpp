@@ -46,6 +46,70 @@ bool Complex::operator== (const Complex& c) const {
 bool Complex::operator!= (const Complex& c) const {
     return !(*this == c);  
 }
+
+Complex Complex::operator* (const Complex& c) const {
+    int newReal = real * c.real - imaginary * c.imaginary;
+    int newImag = real * c.imaginary + imaginary * c.real;
+    return Complex(newReal, newImag);
+}
+
+Complex Complex::operator/ (const Complex& c) const {
+    int denominator = c.real * c.real + c.imaginary * c.imaginary;
+    if (denominator == 0) {
+        
+        return Complex(0, 0);
+    }
+    int newReal = (real * c.real + imaginary * c.imaginary) / denominator;
+    int newImag = (imaginary * c.real - real * c.imaginary) / denominator;
+    return Complex(newReal, newImag);
+}
+
+Complex& Complex::operator+= (const Complex& c) {
+    real += c.real;
+    imaginary += c.imaginary;
+    return *this;
+}
+
+Complex& Complex::operator-= (const Complex& c) {
+    real -= c.real;
+    imaginary -= c.imaginary;
+    return *this;
+}
+
+Complex& Complex::operator*= (const Complex& c) {
+    *this = *this * c;
+    return *this;
+}
+
+Complex& Complex::operator/= (const Complex& c) {
+    *this = *this / c;
+    return *this;
+}
+
+Complex& Complex::operator+= (int realNum) {
+    real += realNum;
+    return *this;
+}
+
+Complex& Complex::operator-= (int realNum) {
+    real -= realNum;
+    return *this;
+}
+
+Complex& Complex::operator*= (int realNum) {
+    real *= realNum;
+    imaginary *= realNum;
+    return *this;
+}
+
+Complex& Complex::operator/= (int realNum) {
+    if (realNum != 0) {
+        real /= realNum;
+        imaginary /= realNum;
+    }
+    return *this;
+}
+
 ostream& operator<<(ostream& os,Complex c) {
     os << c.real;
     if (c.imaginary >= 0) {
