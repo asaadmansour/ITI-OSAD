@@ -44,9 +44,14 @@ void buffer_insert_char(TextBuffer *buffer, char c) {
     if (buffer->cursor_x >= 80) {
         buffer_insert_newline(buffer);
     }
-    buffer->lines[buffer->cursor_y][buffer->cursor_x] = c;
+    
+    char *line = buffer->lines[buffer->cursor_y];
+    int len = strlen(line);
+    
+    memmove(&line[buffer->cursor_x + 1], &line[buffer->cursor_x], len - buffer->cursor_x + 1);
+    
+    line[buffer->cursor_x] = c;
     buffer->cursor_x++;
-    buffer->lines[buffer->cursor_y][buffer->cursor_x] = '\0';
 }
 void buffer_delete_char(TextBuffer *buffer) {
     if (buffer->cursor_x > 0) {
@@ -55,5 +60,24 @@ void buffer_delete_char(TextBuffer *buffer) {
         memmove(&line[buffer->cursor_x - 1], &line[buffer->cursor_x], len - buffer->cursor_x + 1);
         
         buffer->cursor_x--;
+    } else if (buffer->cursor_y > 0) {
+        char *current_line = buffer->lines[buffer->cursor_y];
+        char *prev_line = buffer->lines[buffer->cursor_y - 1];
+        int prev_len = strlen(prev_line);
+        int current_len = strlen(current_line);
+        
+        if (prev_len + current_len < 80) {
+            strcat(prev_line, current_line);
+            
+            free(buffer->lines[buffer->cursor_y]);
+            
+            for (int i = buffer->cursor_y; i < buffer->line_count - 1; i++) {
+                buffer->lines[i] = buffer->lines[i + 1];
+            }
+            
+            buffer->line_count--;
+            buffer->cursor_y--;
+            buffer->cursor_x = prev_len;
+        }
     }
 }
