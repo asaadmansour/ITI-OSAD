@@ -48,6 +48,7 @@ class Complex {
     // Comparison operators
     bool operator ==(const Complex& c) const;
     bool operator !=(const Complex &c) const;
+    int operator [](const int &index) const;
     
     // Stream operator
     friend ostream& operator<< (ostream& os,Complex c);

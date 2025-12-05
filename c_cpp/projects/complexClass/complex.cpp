@@ -119,3 +119,11 @@ ostream& operator<<(ostream& os,Complex c) {
     }
     return os;
 }
+int Complex::operator[](const int &index) const {
+    if(index == 0) 
+        return this->real;
+    else if(index == 1)
+        return imaginary;
+    else 
+        return -1;
+};

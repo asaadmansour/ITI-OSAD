@@ -70,6 +70,7 @@ int main() {
     cout << "chain *= 2 => " << chain << endl;
     chain -= Complex(10, 5);
     cout << "chain -= (10+5i) => " << chain << endl;
-    
+    cout << c1[0]<<endl;
+    cout << c1[1]<<endl;
     return 0;
 }
